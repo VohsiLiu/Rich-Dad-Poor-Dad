@@ -1,0 +1,88 @@
+\documentclass{RichDadPoorDad}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\renewcommand*{\songti}{\CJKfamily{zhsong}} 
+\renewcommand*{\heiti}{\CJKfamily{zhhei}} 
+\renewcommand*{\kaishu}{\CJKfamily{zhkai}} 
+\renewcommand*{\fangsong}{\CJKfamily{zhfs}}
+
+
+
+\begin{document}
+    \include{封面/封面}
+
+    \makeatletter
+    \newcommand*{\l@unindentedsection}[2]{%
+        \ifnum \c@tocdepth >\z@
+            \addpenalty\@secpenalty
+            \addvspace{1.0em \@plus\p@}%
+            \setlength\@tempdima{0em}%
+            \begingroup
+                \parindent \z@ \rightskip \@pnumwidth
+                \parfillskip -\@pnumwidth
+                \leavevmode \bfseries
+                \advance\leftskip\@tempdima
+                \hskip -\leftskip
+                #1\nobreak\hfil
+                \nobreak\hb@xt@\@pnumwidth{\hss #2%
+                    \kern-\p@\kern\p@}\par
+            \endgroup
+        \fi}
+    \makeatother
+    \newcommand{\unindentedsection}[2]{%
+        \begingroup
+        \let\bookaddcontentsline\addcontentsline
+        \renewcommand{\addcontentsline}[3]{%
+            \bookaddcontentsline{##1}{unindentedsection}{##3}%
+        }%
+        \section[#1]{#2}%
+        \endgroup
+    }
+    
+    % 目录
+    \setcounter{secnumdepth}{0}
+    \pagestyle{tocstyle}
+	\pagenumbering{Roman}
+	\tableofcontents
+	\cleardoublepage
+    \setcounter{secnumdepth}{1}
+    \renewcommand{\thesection}{}
+
+    % 设置正文页眉页脚格式
+    \pagestyle{docstyle}
+    \pagenumbering{arabic}
+	\setcounter{page}{1}
+
+    \newcommand{\bookchapter}[1]{%
+        \cleardoublepage
+        \setcounter{footnote}{0}%
+        \include{#1}%
+    }
+    \newcommand{\bookpart}[1]{%
+        \cleardoublepage
+        \phantomsection
+        \addcontentsline{toc}{part}{#1}%
+        \thispagestyle{empty}%
+        \vspace*{3cm}
+        \begin{center}
+            {\xbsong\fontsize{24pt}{36pt}\selectfont #1\par}
+        \end{center}
+        \cleardoublepage
+    }
+    \bookchapter{chapter/0序言}
+    \bookpart{第一部分\q 课程}
+    \bookchapter{chapter/1第一章}
+    \bookchapter{chapter/2第二章}
+    \bookchapter{chapter/3第三章}
+    \bookchapter{chapter/4第四章}
+    \bookchapter{chapter/5第五章}
+    \bookchapter{chapter/6第六章}
+    \bookchapter{chapter/7第七章}
+    \bookpart{第二部分\q 开端}
+    \bookchapter{chapter/8第八章}
+    \bookpart{第三部分\q 开始行动}
+    \bookchapter{chapter/9第九章}
+    \bookchapter{chapter/10第十章}
+    \bookchapter{chapter/11结束语}
+
+\end{document}
